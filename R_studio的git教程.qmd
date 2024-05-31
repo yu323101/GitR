@@ -1,0 +1,61 @@
+---
+title: "R studio的Git教程"
+author: "倪明星"
+date: 2024-05-31
+format: html
+---
+# usethis包
+利用usethis包可以在R script里面直接访问GitHub，主要使用功能如下：用户信息确认、生成秘钥、克隆仓库。
+## 用户信息确认
+1. 在shell里面（即R studio终端里面）
+```{r}
+# git config --global user.name "MIngxing Ni"
+# git config --global user.email "3231014269@qq.com"
+# git config --global --list
+```
+替换您的姓名和与您的GitHub帐户关联的电子邮件。
+2. usethis包提供了一种替代方法。您可以在R中设置您的Git用户名和电子邮件：
+```{r}
+## install if needed (do this exactly once):
+## install.packages("usethis")
+
+# library(usethis)
+# use_git_config(user.name = "MIngxing Ni", user.email = "3231014269@qq.com")
+```
+
+## 生成秘钥
+在R中，可以这样做
+```{r}
+#usethis::create_github_token()
+```
+查看范围;我强烈建议选择“repo”、“user”和“workflow”。如果使用 create_github_token() ，则会预先选择推荐的范围。
+点击“Generate token”
+将生成的PAT复制到剪贴板。或者让浏览器窗口保持打开状态并可用一段时间，这样您就可以回来复制PAT。
+下次Git操作要求输入密码时请提供此PAT。
+您甚至可以在此之前立即显式存储PAT。在R中，调用 gitcreds::gitcreds_set() 以获得一个提示，您可以在其中粘贴PAT：
+```{r}
+# gitcreds::gitcreds_set()
+# 
+# ? Enter password or token: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# -> Adding new credentials...
+# -> Removing credentials from cache...
+# -> Done.
+
+```
+```{r}
+
+```
+
+## 克隆仓库
+```{r}
+# usethis::create_from_github(
+#   "https://github.com/YOU/YOUR_REPO.git",
+#   destdir = "~/path/to/where/you/want/the/local/repo/"
+# )
+```
+第一个参数是 repo_spec ，它接受各种形式的GitHub repo规范。特别是，您可以使用我们刚刚从GitHub复制的URL。
+![](https://raw.githubusercontent.com/yu323101/picgo/main/20240531092812.png)
+
+第二个参数 destdir 指定了新文件夹（和本地Git仓库）所在的父目录。如果你没有指定 destdir ，usethis默认设置在一些非常显眼的地方，比如你的桌面。如果你想将Git仓库保存在电脑上的某个文件夹中，你可以通过在 .Rprofile 中设置 usethis.destdir 选项来个性化这个默认值。
+
+具体详细教程参考https://happygitwithr.com/new-github-first#make-a-repo-on-github-2
