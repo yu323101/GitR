@@ -1,6 +1,6 @@
 ---
 title: "R studio的Git教程"
-author: "倪明星"
+author: 
 date: 2024-05-31
 format: html
 ---
