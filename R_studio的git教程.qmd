@@ -1,6 +1,6 @@
 ---
 title: "R studio的Git教程"
-author: 
+author: cosmos
 date: 2024-05-31
 format: html
 ---
